@@ -1,3 +1,24 @@
+/**
+ * ExerciseDB API - Fitness Exercise Database API
+ * Copyright (C) 2025 AscendAPI
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * This is a fork of the original ExerciseDB API project.
+ * Original repository: https://github.com/exercisedb/exercisedb-api
+ */
+
 import { Hono } from 'hono'
 
 export const Home = new Hono()
@@ -174,6 +195,48 @@ Home.get('/', (c) => {
                     Chat With Us.
                   </a>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-6 p-6 border border-gray-800 rounded-lg bg-opacity-5 bg-white">
+            <div class="flex flex-col space-y-3">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs uppercase bg-opacity-15 rounded text-center max-w-fit px-2 py-1 font-bold tracking-wide bg-yellow-500 text-yellow-500">
+                  License
+                </span>
+                <span class="text-neutral-400 text-sm">AGPL-3.0</span>
+              </div>
+              <div class="text-neutral-400 text-sm leading-relaxed">
+                This project is licensed under the <span class="text-neutral-200 font-semibold">GNU Affero General Public License v3.0 (AGPL-3.0)</span>.
+                <br /><br />
+                <strong class="text-neutral-200">Network Service Notice:</strong> As a user of this network service, you have the right to obtain the complete 
+                Corresponding Source code of this software under AGPL-3.0 Section 13. This is a fork of the original ExerciseDB API project.
+              </div>
+              <div class="flex flex-wrap gap-2 text-xs">
+                <a
+                  href="https://github.com/exercisedb/exercisedb-api"
+                  target="_blank"
+                  class="text-blue-400 hover:text-blue-300 hover:underline"
+                >
+                  View Source Code
+                </a>
+                <span class="text-neutral-600">•</span>
+                <a
+                  href="https://www.gnu.org/licenses/agpl-3.0.html"
+                  target="_blank"
+                  class="text-blue-400 hover:text-blue-300 hover:underline"
+                >
+                  License Details
+                </a>
+                <span class="text-neutral-600">•</span>
+                <a
+                  href="https://github.com/exercisedb/exercisedb-api"
+                  target="_blank"
+                  class="text-blue-400 hover:text-blue-300 hover:underline"
+                >
+                  Original Project
+                </a>
               </div>
             </div>
           </div>

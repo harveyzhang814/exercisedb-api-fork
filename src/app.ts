@@ -1,3 +1,24 @@
+/**
+ * ExerciseDB API - Fitness Exercise Database API
+ * Copyright (C) 2025 AscendAPI
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * This is a fork of the original ExerciseDB API project.
+ * Original repository: https://github.com/exercisedb/exercisedb-api
+ */
+
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { Scalar } from '@scalar/hono-api-reference'
 import { logger } from 'hono/logger'
@@ -63,21 +84,33 @@ export class App {
         openapi: '3.1.0',
         info: {
           version: '1.0.0',
-          title: 'ExerciseDB API - v1 (Open Source)',
-          description: `**ExerciseDB API v1** is a fully open-source and developer-friendly fitness exercise database featuring over 1,500 structured exercises with **GIF-based visual media**. It includes detailed metadata like target muscles, equipment, and body parts, designed for fast integration into fitness apps, personal trainer platforms, and health tools.
+          title: 'ExerciseDB API - Open Source',
+          description: `**ExerciseDB API** is a fully open-source and developer-friendly fitness exercise database featuring over 1,300 structured exercises with **GIF-based visual media**. It includes detailed metadata like target muscles, equipment, and body parts, designed for fast integration into fitness apps, personal trainer platforms, and health tools.
 
-**📝 NOTE**: This version is public, free to use, and includes both the **code and dataset metadata** — making it perfect for personal projects, prototypes, learning, and community-driven apps.
+**📝 NOTE**: This is a 100% free and open-source project, including both the **code and complete dataset** — making it perfect for personal projects, commercial apps, prototypes, learning, and community-driven platforms.
+
+**📄 LICENSE**: This project is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.html). This is a fork of the original ExerciseDB API project.
 
 🔗 Useful Links:
-- 💬 Need full v1 Dataset access: [Download Now](https://dub.sh/v1_plans)
-- 🚀 Explore our new v2 dataset: [v2.exercisedb.dev](https://v2.exercisedb.dev)
-- 🌐 Official Website: [exercisedb.dev](https://exercisedb.dev)`
+- 📜 Source Code: [GitHub Repository](https://github.com/exercisedb/exercisedb-api)
+- 🐛 Report Issues: [GitHub Issues](https://github.com/exercisedb/exercisedb-api/issues)
+- 💡 Feature Requests: [GitHub Discussions](https://github.com/exercisedb/exercisedb-api/discussions)
+- ⭐ Star the Project: [GitHub](https://github.com/exercisedb/exercisedb-api)`,
+          license: {
+            name: 'AGPL-3.0',
+            url: 'https://www.gnu.org/licenses/agpl-3.0.html'
+          },
+          contact: {
+            name: 'ExerciseDB API',
+            email: 'hello@exercisedb.dev',
+            url: 'https://exercisedb.dev'
+          }
         },
         servers: [
           {
             url: `${protocol}//${hostname}${port ? `:${port}` : ''}`,
             description:
-              'v1 Dataset (Open Source)\n• Public & open license\n• Code and metadata available on GitHub\n• GIF-based media\n• Ideal for demos, personal apps, and learning\n• chat support for full dataset access'
+              'Open Source API\n• 100% Free & Open License (AGPL-3.0)\n• Complete code and dataset on GitHub\n• 1,300+ exercises with GIF animations\n• Perfect for commercial & personal projects'
           }
         ]
       }
@@ -87,7 +120,7 @@ export class App {
     this.app.get(
       '/docs',
       Scalar({
-        pageTitle: 'ExerciseDB API - v1 (Open Source)',
+        pageTitle: 'ExerciseDB API - Open Source',
         theme: 'kepler',
         isEditable: false,
         layout: 'modern',
@@ -99,18 +132,20 @@ export class App {
         defaultOpenAllTags: true,
         hideClientButton: true,
         metaData: {
-          applicationName: 'ExerciseDB API - v1',
+          applicationName: 'ExerciseDB API - Open Source',
           author: 'Ascend API',
           creator: 'Ascend API',
           publisher: 'Ascend API',
           ogType: 'website',
           robots: 'index follow',
-          description: `**ExerciseDB API v1** is a fully open-source exercise dataset offering 1,300+ exercises with rich metadata and GIF visualizations. Built for speed and ease of use, it's ideal for personal projects, prototypes, and education.
+          description: `**ExerciseDB API** is a 100% free and open-source exercise database offering 1,300+ exercises with rich metadata and GIF visualizations. Built for speed and ease of use, it's perfect for personal projects, commercial apps, prototypes, and education.
+
+📄 **License**: AGPL-3.0 - This is a fork of the original ExerciseDB API. You have the right to obtain the complete source code.
 
 🔗 Useful Links:
-- 💬 Chat with us for full GIF access: [Telegram](https://t.me/exercisedb)
-- 🚀 Explore our new v2 dataset: [v2.exercisedb.dev](https://v2.exercisedb.dev)
-- 🌐 Official Website: [exercisedb.dev](https://exercisedb.dev)`
+- 📜 Source Code: [GitHub](https://github.com/exercisedb/exercisedb-api)
+- 🐛 Report Issues: [GitHub Issues](https://github.com/exercisedb/exercisedb-api/issues)
+- 💡 Discussions: [GitHub Discussions](https://github.com/exercisedb/exercisedb-api/discussions)`
         }
       })
     )
@@ -118,10 +153,11 @@ export class App {
 
   private initializeRouteFallback() {
     this.app.notFound((c) => {
+      const baseUrl = new URL(c.req.url).origin
       return c.json(
         {
           success: false,
-          message: 'route not found!!. check docs at https://v1.exercisedb.dev/docs'
+          message: `Route not found. Check the API documentation at ${baseUrl}/docs`
         },
         404
       )

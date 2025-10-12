@@ -1,0 +1,79 @@
+ExerciseDB API - Fitness Exercise Database API
+Copyright (C) 2025 AscendAPI
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+================================================================================
+FORK INFORMATION
+================================================================================
+
+This is a fork of the original ExerciseDB API project.
+
+Original Project:
+  Name: ExerciseDB API
+  Repository: https://github.com/exercisedb/exercisedb-api
+  Copyright: Copyright (C) 2025 AscendAPI
+  License: GNU Affero General Public License v3.0 (AGPL-3.0)
+
+This fork maintains the same license (AGPL-3.0) as required by the original
+project's license terms.
+
+================================================================================
+AGPL-3.0 NETWORK SERVICE REQUIREMENT (Section 13)
+================================================================================
+
+Important Notice for Network Service Operators:
+
+If you modify this program and make it available as a network service (such as
+a web API, SaaS platform, or any other remote access method), you MUST:
+
+1. Offer all users of the network service access to the Corresponding Source
+   of your modified version
+2. Provide this access through a network server at no charge
+3. Use some standard or customary means of facilitating copying of software
+4. Make the source code easily discoverable and accessible to users
+
+This is a key requirement of the GNU Affero General Public License v3.0 and
+differentiates it from the regular GPL. Failure to comply with this requirement
+violates the license terms.
+
+For more information, see:
+https://www.gnu.org/licenses/agpl-3.0.html#section13
+
+================================================================================
+OBTAINING THE SOURCE CODE
+================================================================================
+
+The complete Corresponding Source for this software is available at:
+https://github.com/exercisedb/exercisedb-api
+
+If you are using a modified version as a network service and cannot find the
+source code, contact the service operator as they are required to provide it
+under the AGPL-3.0 license terms.
+
+================================================================================
+ADDITIONAL COPYRIGHT NOTICES
+================================================================================
+
+This project may include contributions from multiple authors. Each file may
+contain additional copyright notices identifying the author(s) of that file.
+
+All contributions to this project are licensed under the AGPL-3.0 unless
+explicitly stated otherwise in individual files.
+
+================================================================================
+
+For the complete license text, see the LICENSE file in this repository or visit:
+https://www.gnu.org/licenses/agpl-3.0.html
+

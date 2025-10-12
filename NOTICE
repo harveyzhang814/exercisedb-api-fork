@@ -1,0 +1,61 @@
+ExerciseDB API - Fitness Exercise Database API
+Copyright (C) 2025 AscendAPI
+
+This project is a fork of the original ExerciseDB API project.
+
+===============================================================================
+
+ORIGINAL PROJECT INFORMATION
+===============================================================================
+
+Original Project: ExerciseDB API
+Original Repository: https://github.com/exercisedb/exercisedb-api
+Original Copyright: Copyright (C) 2025 AscendAPI
+Original License: GNU Affero General Public License v3.0 (AGPL-3.0)
+
+===============================================================================
+
+FORK INFORMATION
+===============================================================================
+
+This is a modified version of the original ExerciseDB API project.
+This fork may contain modifications, enhancements, or other changes
+from the original version.
+
+All modifications to this fork are also licensed under the
+GNU Affero General Public License v3.0 (AGPL-3.0).
+
+===============================================================================
+
+LICENSE
+===============================================================================
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+===============================================================================
+
+NETWORK SERVICE NOTICE (AGPL Section 13)
+===============================================================================
+
+If you modify this program and provide it as a network service, you MUST
+offer all users interacting with it remotely through a computer network
+an opportunity to receive the Corresponding Source of your version by
+providing access to the Corresponding Source from a network server at no
+charge.
+
+===============================================================================
+
+For the complete license text, see the LICENSE file in the root directory
+of this project.
+

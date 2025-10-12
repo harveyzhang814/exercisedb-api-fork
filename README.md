@@ -5,26 +5,35 @@
   <br />
   <img src="https://cdn.exercisedb.dev/exercisedb/android-chrome-512x512.png" alt="ExerciseDB Logo" width="120" height="120" />
 
-  <h3>🏋️‍♂️ Comprehensive Fitness Exercise Database API</h3>
+  <h3>🏋️‍♂️ Open Source Fitness Exercise Database API</h3>
   
   <p>
-    <strong>5,000+ structured exercises</strong> • <strong>Fast & Modern</strong> • <strong>Developer-Friendly</strong>
+    <strong>1,300+ exercises</strong> • <strong>Fast & Modern</strong> • <strong>Developer-Friendly</strong> • <strong>100% Free</strong>
+  </p>
+  
+  <p>
+    <a href="#-license">
+      <img src="https://img.shields.io/badge/License-AGPL--3.0-blue.svg?style=for-the-badge" alt="License: AGPL-3.0" />
+    </a>
+    <a href="https://github.com/exercisedb/exercisedb-api">
+      <img src="https://img.shields.io/badge/Fork-Original%20Project-orange.svg?style=for-the-badge&logo=github" alt="Forked from Original" />
+    </a>
   </p>
   
   <p>
     <span style="margin-right: 10px;">
-      <a href="https://dub.sh/exercisedb-api">
-        <img src="https://img.shields.io/badge/Get%20Started-2D2D2D?style=for-the-badge&logo=rocket&logoColor=white" alt="Get Started" />
+      <a href="#-getting-started">
+        <img src="https://img.shields.io/badge/Getting%20Started-2D2D2D?style=for-the-badge&logo=rocket&logoColor=white" alt="Getting Started" />
       </a>
     </span>
     <span style="margin-right: 10px;">
-      <a href="https://docs.exercisedb.dev">
-        <img src="https://img.shields.io/badge/Documentation-404040?style=for-the-badge&logo=book&logoColor=white" alt="Documentation" />
+      <a href="#-dataset-information">
+        <img src="https://img.shields.io/badge/Dataset%20Info-404040?style=for-the-badge&logo=database&logoColor=white" alt="Dataset Info" />
       </a>
     </span>
     <span>
-      <a href="#examples">
-        <img src="https://img.shields.io/badge/Examples-5A5A5A?style=for-the-badge&logo=code&logoColor=white" alt="Examples" />
+      <a href="#-contributing">
+        <img src="https://img.shields.io/badge/Contributing-5A5A5A?style=for-the-badge&logo=github&logoColor=white" alt="Contributing" />
       </a>
     </span>
   </p>
@@ -33,7 +42,9 @@
 
 ## 🏋🏼‍♀️ ExerciseDB API
 
-ExerciseDB API is a **comprehensive and developer-friendly database** featuring over **5,000 structured, high-quality fitness exercises**. It delivers fast, modern, and scalable access to detailed exercise data—including targeted muscle groups, required equipment, visual aids (images and videos), and step-by-step instructions. Ideal for developers, fitness startups, and health platforms, ExerciseDB empowers the creation of smart workout apps, personalized training plans, and interactive fitness tools.
+> **Note:** This is a fork of the [original ExerciseDB API](https://github.com/exercisedb/exercisedb-api) project, maintained under the same AGPL-3.0 license.
+
+ExerciseDB API is a **free, open-source fitness exercise database** featuring over **1,300 structured, high-quality exercises**. It delivers fast, modern, and scalable access to detailed exercise data—including targeted muscle groups, required equipment, GIF demonstrations, and step-by-step instructions. Perfect for developers building fitness apps, personal training platforms, and health tools without the constraints of commercial APIs.
 
 **Perfect for:**
 
@@ -45,156 +56,132 @@ ExerciseDB API is a **comprehensive and developer-friendly database** featuring 
 
 <br>
 
-## 🚀 Deploy Your Own API (V1)
+## 🚀 Getting Started
 
-Want to self-host the open-source ExerciseDB API (V1)?
+### Installation
 
-You can instantly deploy it to **Vercel** with just one click and have your own version running in seconds — no backend setup needed.
+```bash
+# Clone the repository
+git clone https://github.com/exercisedb/exercisedb-api.git
+cd exercisedb-api
 
-<div align="left">
+# Install dependencies
+bun install
 
-[![Deploy with Vercel](https://vercel.com/button)](https://dub.sh/DeployNow)
+# Run development server
+bun run dev
 
-</div>
+# Build for production
+bun run build
 
-## 🔗 Useful Links
+# Start production server
+bun run start
+```
 
-<div align="left">
+### API Documentation
 
-### 📚 **Documentation & Plans**
+Once the server is running, you can access:
+- **API Documentation**: `http://localhost:80/docs`
+- **Home Page**: `http://localhost:80/`
+- **API Endpoints**: `http://localhost:80/api/v1/...`
 
-<a href="https://dub.sh/JTgJoq2" target="_blank">
-  <img src="https://img.shields.io/badge/Full%20Documentation-2D2D2D?style=for-the-badge&logo=notion&logoColor=white" alt="Full Documentation" />
-</a>
-<a href="https://dub.sh/JTgJoq2" target="_blank">
-  <img src="https://img.shields.io/badge/Pricing%20Plans-404040?style=for-the-badge&logo=credit-card&logoColor=white" alt="Pricing Plans" />
-</a>
-<a href="https://dub.sh/exercisedb-api-tos" target="_blank">
-  <img src="https://img.shields.io/badge/Terms%20Of%20Use-2D2D2D?style=for-the-badge&logo=notion&logoColor=white" alt="Terms of use" />
-</a>
-<br>
+## 📊 Dataset Information
 
-### 🧪 **API Playground**
+This open-source version includes:
+- **1,300+ exercises** with detailed metadata
+- **Body parts**: Chest, Back, Legs, Arms, Shoulders, and more
+- **Equipment types**: Barbell, Dumbbell, Bodyweight, Machine, etc.
+- **Target muscles**: Detailed muscle group information
+- **GIF animations**: Visual demonstrations for each exercise
 
-<strong>Test our datasets and explore API endpoints</strong><br>
-<em>⚠️ These endpoints are for exploration only and <strong>not recommended for production integration</strong> — strict rate limits and potential instability may apply.</em>
-<br><br>
-<strong style="color: red;">**Note:** V1 and V2 refer to different datasets.</strong>
-<br>
+### Data Structure
 
-  <p>
-    <a href="https://dub.sh/exercisedb_v2" target="_blank">
-      <img src="https://img.shields.io/badge/v2%20Playground-5A5A5A?style=for-the-badge&logo=play&logoColor=white" alt="v2 Playground" />
-    </a>
-    <a href="https://dub.sh/exercisedb_v1" target="_blank">
-      <img src="https://img.shields.io/badge/v1%20Playground-5A5A5A?style=for-the-badge&logo=play&logoColor=white" alt="v1 Playground" />
-    </a>
-  </p>
-
-</div>
-
-## 📬 Support & Contact
-
-<div align="left">
-
-<p><strong>Need help or have questions? We're here to assist!</strong></p>
-
-<table>
-  <tr>
-    <td align="left">
-      <a href="mailto:hello@exercisedb.dev">
-        <img src="https://img.shields.io/badge/General%20Inquiries-2D2D2D?style=for-the-badge&logo=mail&logoColor=white" alt="General Inquiries" />
-      </a>
-      <br>
-      <small>✉️ Partnerships & General Questions</small>
-    </td>
-    <td align="left">
-      <a href="mailto:support@exercisedb.dev">
-        <img src="https://img.shields.io/badge/Technical%20Support-404040?style=for-the-badge&logo=wrench&logoColor=white" alt="Technical Support" />
-      </a>
-      <br>
-      <small>🛠️ API Help & Technical Issues</small>
-    </td>
-    <td align="left">
-      <a href="https://t.me/exercisedb" target="_blank">
-        <img src="https://img.shields.io/badge/Chat%20With%20Us-5A5A5A?style=for-the-badge&logo=message-circle&logoColor=white" alt="Chat With Us" />
-      </a>
-      <br>
-      <small>💬 Live Chat Support (Fast Response)</small>
-    </td>
-  </tr>
-</table>
-
-</div>
-
-<br>
-
-## 🏋️‍♂️ V2 Exercise Sample
-
+Each exercise includes:
 ```json
 {
-  "exerciseId": "K6NnTv0",
-  "name": "Bench Press",
-  "imageUrl": "Barbell-Bench-Press_Chest.png",
-  "equipments": ["Barbell"],
-  "bodyParts": ["Chest"],
-  "exerciseType": "weight_reps",
-  "targetMuscles": ["Pectoralis Major Clavicular Head"],
-  "secondaryMuscles": ["Deltoid Anterior", "Pectoralis Major Clavicular Head", "Triceps Brachii"],
-  "videoUrl": "Barbell-Bench-Press_Chest_.mp4",
-  "keywords": [
-    "Chest workout with barbell",
-    "Barbell bench press exercise",
-    "Strength training for chest",
-    "Upper body workout with barbell",
-    "Barbell chest exercises",
-    "Bench press for chest muscles",
-    "Building chest muscles with bench press",
-    "Chest strengthening with barbell",
-    "Bench press workout routine",
-    "Barbell exercises for chest muscle growth"
-  ],
-  "overview": "The Bench Press is a classic strength training exercise that primarily targets the chest, shoulders, and triceps, contributing to upper body muscle development. It is suitable for anyone, from beginners to professional athletes, looking to improve their upper body strength and muscular endurance. Individuals may want to incorporate bench press into their routine for its effectiveness in enhancing physical performance, promoting bone health, and improving body composition.",
+  "bodyPart": "chest",
+  "equipment": "barbell",
+  "gifUrl": "https://example.com/exercise.gif",
+  "id": "0001",
+  "name": "bench press",
+  "target": "pectorals",
+  "secondaryMuscles": ["triceps", "deltoids"],
   "instructions": [
-    "Grip the barbell with your hands slightly wider than shoulder-width apart, palms facing your feet, and lift it off the rack, holding it straight over your chest with your arms fully extended.",
-    "Slowly lower the barbell down to your chest while keeping your elbows at a 90-degree angle.",
-    "Once the barbell touches your chest, push it back up to the starting position while keeping your back flat on the bench.",
-    "Repeat this process for the desired number of repetitions, always maintaining control of the barbell and ensuring your form is correct."
-  ],
-  "exerciseTips": [
-    "Avoid Arching Your Back: One common mistake is excessively arching the back during the lift. This can lead to lower back injuries. Your lower back should have a natural arch, but it should not be overly exaggerated. Your butt, shoulders, and head should maintain contact with the bench at all times.",
-    "Controlled Movement: Avoid the temptation to lift the barbell too quickly. A controlled, steady lift is more effective and reduces the risk of injury. Lower the bar to your mid-chest slowly, pause briefly, then push it back up without locking your elbows at the top.",
-    "Don't Lift Alone:"
-  ],
-  "variations": [
-    "Decline Bench Press: This variation is performed on a decline bench to target the lower part of the chest.",
-    "Close-Grip Bench Press: This variation focuses on the triceps and the inner part of the chest by placing the hands closer together on the bar.",
-    "Dumbbell Bench Press: This variation uses dumbbells instead of a barbell, allowing for a greater range of motion and individual arm movement.",
-    "Reverse-Grip Bench Press: This variation is performed by flipping your grip so that your palms face towards you, targeting the upper chest and triceps."
-  ],
-  "relatedExerciseIds": [
-    "U0uPZBq",
-    "QD32SbB",
-    "pdm4AfV",
-    "SebLXCG",
-    "T3JogV7",
-    "hiWPEs1",
-    "Y5ppDdt",
-    "C8OV7Pv",
-    "r3tQt3U",
-    "dCSgT7N"
+    "Step 1: Position yourself on the bench...",
+    "Step 2: Lower the bar to your chest...",
+    "Step 3: Press the bar back up..."
   ]
 }
 ```
 
-### 🖼️ Sample Image
+## 🤝 Contributing
 
-![Bench Press Exercise](https://ucarecdn.com/c12bb487-7390-4fc7-903c-a1c2298e70ad/K6NnTv0__BarbellBenchPress_Chest.png)
+We welcome contributions from the community! Here's how you can help:
 
-### 🎥 Sample Video
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Commit your changes**: `git commit -m 'Add some amazing feature'`
+4. **Push to the branch**: `git push origin feature/amazing-feature`
+5. **Open a Pull Request**
 
-[Watch Bench Press Video Sample](https://github.com/user-attachments/assets/6845a963-4d80-4dfd-b602-e49616a9483f)
+Please ensure your PR:
+- Follows the existing code style
+- Includes appropriate tests
+- Updates documentation as needed
+
+## 📬 Support & Community
+
+<div align="left">
+
+<p><strong>Need help or want to contribute?</strong></p>
+
+- 🐛 **Report Issues**: [GitHub Issues](https://github.com/exercisedb/exercisedb-api/issues)
+- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/exercisedb/exercisedb-api/discussions)
+- 📖 **Documentation**: Check the `/docs` endpoint when running the server
+- ⭐ **Star the project** if you find it useful!
+
+</div>
 
 ---
 
-<em>💪 Now that you’ve bench pressed through the sample… go lift the rest of the v2 dataset like a champ! 😄<em>
+## 📄 License
+
+This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+
+### Fork Information
+
+This is a fork of the original [ExerciseDB API](https://github.com/exercisedb/exercisedb-api) project. The original project is also licensed under AGPL-3.0.
+
+**Original Copyright Notice:**
+```
+ExerciseDB API - Fitness Exercise Database API
+Copyright (C) 2025 AscendAPI
+```
+
+### Your Rights and Obligations
+
+Under the AGPL-3.0 license:
+
+- ✅ You are free to use, modify, and distribute this software
+- ✅ You can use this software for commercial purposes
+- ⚠️ **You must disclose the source code** of any modified versions
+- ⚠️ **You must license any derivative works** under the same AGPL-3.0 license
+- ⚠️ **If you run a modified version as a network service**, you must make the complete source code available to users of that service
+
+### Network Service Requirement (AGPL Section 13)
+
+If you modify this program and provide it as a network service (e.g., a web API), you **must** offer all users interacting with it remotely an opportunity to receive the complete source code of your modified version. This is the key difference between AGPL and GPL.
+
+### Get the Source Code
+
+The complete source code for this project is available at:
+- **This Fork:** [Your Repository URL]
+- **Original Project:** https://github.com/exercisedb/exercisedb-api
+
+For the full license text, see the [LICENSE](./LICENSE) file.
+
+For more information about AGPL-3.0, visit: https://www.gnu.org/licenses/agpl-3.0.html
+
+---
+
+**Note:** By using, modifying, or distributing this software, you agree to comply with the terms of the GNU Affero General Public License v3.0.
