@@ -4,7 +4,7 @@
  */
 
 import type { Exercise, BodyPart, Equipment, Muscle } from '../../data/types'
-import type { SupportedLanguage } from '../types/i18n.types'
+import type { SupportedLanguage, TranslationData } from '../types/i18n.types'
 import { loadTranslations } from './translation-loader'
 
 /**
@@ -27,7 +27,15 @@ export class Translator {
     }
 
     const translations = loadTranslations(this.lang)
-    const translationMap = translations[type + 's'] as Record<string, string>
+    
+    // Map type to translation key
+    const typeMap: Record<'bodypart' | 'equipment' | 'muscle', keyof TranslationData> = {
+      bodypart: 'bodyparts',
+      equipment: 'equipments',
+      muscle: 'muscles'
+    }
+    
+    const translationMap = translations[typeMap[type]] as Record<string, string>
 
     return translationMap[text.toLowerCase()] || text
   }
