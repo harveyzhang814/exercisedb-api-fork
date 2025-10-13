@@ -153,6 +153,62 @@ export class Translator {
 
     return message
   }
+
+  /**
+   * 反向翻译：从译文找到原文
+   * 用于路径参数的语言转换
+   */
+  reverseTranslate(translatedText: string, type: 'bodypart' | 'equipment' | 'muscle'): string {
+    if (this.lang === 'en-US') {
+      return translatedText
+    }
+
+    const translations = loadTranslations(this.lang)
+    const typeMap: Record<'bodypart' | 'equipment' | 'muscle', keyof TranslationData> = {
+      bodypart: 'bodyparts',
+      equipment: 'equipments',
+      muscle: 'muscles'
+    }
+
+    const translationMap = translations[typeMap[type]] as Record<string, string>
+
+    // 反向查找：译文 -> 原文
+    for (const [original, translated] of Object.entries(translationMap)) {
+      if (translated.toLowerCase() === translatedText.toLowerCase()) {
+        return original
+      }
+    }
+
+    return translatedText // 如果找不到，返回原文
+  }
+
+  /**
+   * 双向翻译：自动检测输入语言并转换
+   */
+  bidirectionalTranslate(
+    text: string,
+    type: 'bodypart' | 'equipment' | 'muscle'
+  ): {
+    original: string
+    translated: string
+  } {
+    // 先尝试正向翻译
+    const translated = this.translate(text, type)
+
+    // 如果翻译结果和输入相同，说明输入可能是译文，尝试反向
+    if (translated === text) {
+      const original = this.reverseTranslate(text, type)
+      return {
+        original,
+        translated: this.translate(original, type)
+      }
+    }
+
+    return {
+      original: text,
+      translated
+    }
+  }
 }
 
 /**

@@ -5,6 +5,7 @@ import { ExerciseService } from '../services/exercise.service'
 import { ExerciseModel, ExerciseResponseSchema, PaginationQuerySchema } from '../models/exercise.model'
 import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
 import type { AppEnv } from '../../../common/types/env.types'
+import { createTranslator } from '../../../common/i18n'
 
 export class ExerciseController implements Routes {
   public controller: OpenAPIHono<AppEnv>
@@ -406,11 +407,15 @@ export class ExerciseController implements Routes {
         const { origin, pathname } = new URL(ctx.req.url)
         const lang = ctx.get('language')
 
+        // 支持多语言输入（双向翻译）
+        const translator = createTranslator(lang)
+        const { original } = translator.bidirectionalTranslate(bodyPartName, 'bodypart')
+
         const { totalExercises, currentPage, totalPages, exercises } =
           await this.exerciseService.getExercisesByBodyPart({
             offset,
             limit,
-            bodyPart: bodyPartName,
+            bodyPart: original,
             lang
           })
 
@@ -468,11 +473,15 @@ export class ExerciseController implements Routes {
         const { origin, pathname } = new URL(ctx.req.url)
         const lang = ctx.get('language')
 
+        // 支持多语言输入（双向翻译）
+        const translator = createTranslator(lang)
+        const { original } = translator.bidirectionalTranslate(equipmentName, 'equipment')
+
         const { totalExercises, currentPage, totalPages, exercises } =
           await this.exerciseService.getExercisesByEquipment({
             offset,
             limit,
-            equipment: equipmentName,
+            equipment: original,
             lang
           })
 
@@ -538,10 +547,15 @@ export class ExerciseController implements Routes {
         const muscleName = ctx.req.param('muscleName')
         const { origin, pathname } = new URL(ctx.req.url)
         const lang = ctx.get('language')
+
+        // 支持多语言输入（双向翻译）
+        const translator = createTranslator(lang)
+        const { original } = translator.bidirectionalTranslate(muscleName, 'muscle')
+
         const { totalExercises, currentPage, totalPages, exercises } = await this.exerciseService.getExercisesByMuscle({
           offset,
           limit,
-          muscle: muscleName,
+          muscle: original,
           includeSecondary,
           lang
         })

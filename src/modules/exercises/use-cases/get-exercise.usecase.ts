@@ -2,18 +2,18 @@ import { IUseCase } from '#common/types/use-case.type.js'
 import { FileLoader } from '../../../data/load'
 import Fuse from 'fuse.js'
 import { Exercise, GetExercisesArgs, GetExercisesReturnArgs } from '../types'
-import { createTranslator } from '../../../common/i18n'
-import { DEFAULT_LANGUAGE } from '../../../common/types/i18n.types'
+import { DEFAULT_LANGUAGE, type SupportedLanguage } from '../../../common/types/i18n.types'
 
 export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExercisesReturnArgs> {
-  private exerciseData: Exercise[] | null = null
   private fuse: Fuse<Exercise> | null = null
 
   constructor() {}
 
-  private async getExerciseData(): Promise<Exercise[]> {
-    this.exerciseData = await FileLoader.loadExercises()
-    return this.exerciseData
+  /**
+   * 获取指定语言的运动数据（预翻译）
+   */
+  private async getExerciseData(lang: SupportedLanguage): Promise<Exercise[]> {
+    return await FileLoader.getTranslatedExercises(lang)
   }
 
   private getFuseInstance(data: Exercise[], threshold: number = 0.3): Fuse<Exercise> {
@@ -153,23 +153,20 @@ export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExerci
 
   async execute({ offset, limit, query = {}, sort = {}, lang }: GetExercisesArgs): Promise<GetExercisesReturnArgs> {
     try {
-      const exerciseData = await this.getExerciseData()
-      console.log({ query, offset, limit, sort, exrLenght: exerciseData.length })
-      // Apply filters
+      const language = lang || DEFAULT_LANGUAGE
+      
+      // 直接获取翻译后的数据
+      const exerciseData = await this.getExerciseData(language)
+      console.log({ query, offset, limit, sort, lang: language, exrLenght: exerciseData.length })
+      
+      // 在翻译后的数据上进行搜索和过滤
       const filtered = this.filterByQuery(exerciseData, query)
-      // Apply sorting
       const sorted = this.sortExercises(filtered, sort)
-
-      // Apply pagination
       const { exercises, totalPages, currentPage } = this.paginateResults(sorted, offset || 0, limit || 10)
 
-      // Apply translation
-      const language = lang || DEFAULT_LANGUAGE
-      const translator = createTranslator(language)
-      const translatedExercises = translator.translateExercises(exercises)
-
+      // 直接返回（已经是翻译后的数据）
       return {
-        exercises: translatedExercises,
+        exercises,
         totalPages,
         totalExercises: filtered.length,
         currentPage

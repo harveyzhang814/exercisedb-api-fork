@@ -2,7 +2,6 @@ import { IUseCase } from '#common/types/use-case.type.js'
 import { FileLoader } from '../../../data/load'
 import { FetchExerciseByIdReq, Exercise as FetchExerciseByIdRes } from '../types'
 import { HTTPException } from 'hono/http-exception'
-import { createTranslator } from '../../../common/i18n'
 import { DEFAULT_LANGUAGE } from '../../../common/types/i18n.types'
 
 export class GetExerciseByIdUseCase implements IUseCase<FetchExerciseByIdReq, FetchExerciseByIdRes> {
@@ -10,8 +9,12 @@ export class GetExerciseByIdUseCase implements IUseCase<FetchExerciseByIdReq, Fe
 
   async execute(request: FetchExerciseByIdReq): Promise<FetchExerciseByIdRes> {
     const { exerciseId, lang } = request
-    const exerciseData = await FileLoader.loadExercises()
+    const language = lang || DEFAULT_LANGUAGE
+    
+    // 获取翻译后的数据
+    const exerciseData = await FileLoader.getTranslatedExercises(language)
     const isExerciseExist = exerciseData.find((exer) => exer.exerciseId === exerciseId)
+    
     // check is exercise exist
     if (!isExerciseExist) {
       throw new HTTPException(404, {
@@ -19,11 +22,7 @@ export class GetExerciseByIdUseCase implements IUseCase<FetchExerciseByIdReq, Fe
       })
     }
 
-    // Apply translation
-    const language = lang || DEFAULT_LANGUAGE
-    const translator = createTranslator(language)
-    const translatedExercise = translator.translateExercise(isExerciseExist)
-
-    return translatedExercise
+    // 直接返回（已经是翻译后的数据）
+    return isExerciseExist
   }
 }

@@ -30,6 +30,7 @@ import { cors } from 'hono/cors'
 import { languageMiddleware } from './middleware/i18n'
 import { preloadTranslations } from './common/i18n'
 import type { AppEnv } from './common/types/env.types'
+import { FileLoader } from './data/load'
 
 export class App {
   private app: OpenAPIHono<AppEnv>
@@ -41,6 +42,9 @@ export class App {
     try {
       // Preload translations on startup
       preloadTranslations()
+      
+      // Preload translated data for all supported languages
+      await FileLoader.preloadTranslatedData()
 
       this.initializeGlobalMiddleware()
       this.initializeRoutes(routes)
