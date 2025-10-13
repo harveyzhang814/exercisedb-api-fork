@@ -4,12 +4,13 @@ import { z } from 'zod'
 import { EquipmentModel } from '../models/equipment.model'
 import { EquipmentService } from '../services'
 import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
+import type { AppEnv } from '../../../common/types/env.types'
 
 export class EquipmentController implements Routes {
-  public controller: OpenAPIHono
+  public controller: OpenAPIHono<AppEnv>
   private readonly equipmentService: EquipmentService
   constructor() {
-    this.controller = new OpenAPIHono()
+    this.controller = new OpenAPIHono<AppEnv>()
     this.equipmentService = new EquipmentService()
   }
 

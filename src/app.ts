@@ -29,10 +29,12 @@ import type { HTTPException } from 'hono/http-exception'
 import { cors } from 'hono/cors'
 import { languageMiddleware } from './middleware/i18n'
 import { preloadTranslations } from './common/i18n'
+import type { AppEnv } from './common/types/env.types'
+
 export class App {
-  private app: OpenAPIHono
+  private app: OpenAPIHono<AppEnv>
   constructor(routes: Routes[]) {
-    this.app = new OpenAPIHono()
+    this.app = new OpenAPIHono<AppEnv>()
     this.initializeApp(routes)
   }
   private async initializeApp(routes: Routes[]) {

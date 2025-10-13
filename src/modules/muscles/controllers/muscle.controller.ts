@@ -4,12 +4,13 @@ import { z } from 'zod'
 import { MuscleModel } from '../models/muscle.model'
 import { MuscleService } from '../services'
 import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
+import type { AppEnv } from '../../../common/types/env.types'
 
 export class MuscleController implements Routes {
-  public controller: OpenAPIHono
+  public controller: OpenAPIHono<AppEnv>
   private readonly muscleService: MuscleService
   constructor() {
-    this.controller = new OpenAPIHono()
+    this.controller = new OpenAPIHono<AppEnv>()
     this.muscleService = new MuscleService()
   }
 

@@ -4,12 +4,13 @@ import { z } from 'zod'
 import { BodyPartService } from '../services'
 import { BodyPartModel } from '../models/bodyPart.model'
 import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
+import type { AppEnv } from '../../../common/types/env.types'
 
 export class BodyPartController implements Routes {
-  public controller: OpenAPIHono
+  public controller: OpenAPIHono<AppEnv>
   private readonly bodyPartService: BodyPartService
   constructor() {
-    this.controller = new OpenAPIHono()
+    this.controller = new OpenAPIHono<AppEnv>()
     this.bodyPartService = new BodyPartService()
   }
 

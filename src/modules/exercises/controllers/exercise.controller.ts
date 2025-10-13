@@ -4,12 +4,13 @@ import { z } from 'zod'
 import { ExerciseService } from '../services/exercise.service'
 import { ExerciseModel, ExerciseResponseSchema, PaginationQuerySchema } from '../models/exercise.model'
 import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
+import type { AppEnv } from '../../../common/types/env.types'
 
 export class ExerciseController implements Routes {
-  public controller: OpenAPIHono
+  public controller: OpenAPIHono<AppEnv>
   private readonly exerciseService: ExerciseService
   constructor() {
-    this.controller = new OpenAPIHono()
+    this.controller = new OpenAPIHono<AppEnv>()
     this.exerciseService = new ExerciseService()
   }
   private buildPaginationUrls(
