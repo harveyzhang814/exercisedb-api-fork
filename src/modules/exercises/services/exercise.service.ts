@@ -24,7 +24,8 @@ export class ExerciseService {
       query: {
         search: params.query,
         searchThreshold: params.threshold
-      }
+      },
+      lang: params.lang
     }
 
     return this.getExercisesUseCase.execute(query)
@@ -38,7 +39,8 @@ export class ExerciseService {
       offset: params.offset,
       limit: params.limit,
       query: params.search ? { search: params.search } : {},
-      sort: params.sort
+      sort: params.sort,
+      lang: params.lang
     }
 
     return this.getExercisesUseCase.execute(query)
@@ -66,7 +68,8 @@ export class ExerciseService {
       offset: params.offset,
       limit: params.limit,
       query: queryFilters,
-      sort: params.sort
+      sort: params.sort,
+      lang: params.lang
     }
 
     return this.getExercisesUseCase.execute(query)
@@ -79,7 +82,8 @@ export class ExerciseService {
       limit: params.limit,
       query: {
         bodyParts: [params.bodyPart]
-      }
+      },
+      lang: params.lang
     }
 
     return this.getExercisesUseCase.execute(query)
@@ -92,7 +96,8 @@ export class ExerciseService {
       limit: params.limit,
       query: {
         equipments: [params.equipment]
-      }
+      },
+      lang: params.lang
     }
 
     return this.getExercisesUseCase.execute(query)
@@ -106,7 +111,8 @@ export class ExerciseService {
       query: {
         targetMuscles: [params.muscle],
         includeSecondaryMuscles: params.includeSecondary
-      }
+      },
+      lang: params.lang
     }
 
     return this.getExercisesUseCase.execute(query)

@@ -27,6 +27,8 @@ import { Home } from './pages/home'
 import { Routes } from '#common/types'
 import type { HTTPException } from 'hono/http-exception'
 import { cors } from 'hono/cors'
+import { languageMiddleware } from './middleware/i18n'
+import { preloadTranslations } from './common/i18n'
 export class App {
   private app: OpenAPIHono
   constructor(routes: Routes[]) {
@@ -35,6 +37,9 @@ export class App {
   }
   private async initializeApp(routes: Routes[]) {
     try {
+      // Preload translations on startup
+      preloadTranslations()
+
       this.initializeGlobalMiddleware()
       this.initializeRoutes(routes)
       this.initializeSwaggerUI()
@@ -70,6 +75,9 @@ export class App {
       const end = Date.now()
       c.res.headers.set('X-Response-Time', `${end - start}ms`)
     })
+
+    // Language detection middleware
+    this.app.use(languageMiddleware)
 
     // this.app.use(authMiddleware)
   }

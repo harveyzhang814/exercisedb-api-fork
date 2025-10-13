@@ -1,4 +1,5 @@
 import { GetMusclesUseCase } from '../use-cases'
+import { GetMusclesArgs } from '../types'
 
 export class MuscleService {
   private readonly getMuscleUseCase: GetMusclesUseCase
@@ -7,7 +8,7 @@ export class MuscleService {
     this.getMuscleUseCase = new GetMusclesUseCase()
   }
 
-  getMuscles = () => {
-    return this.getMuscleUseCase.execute()
+  getMuscles = (args?: GetMusclesArgs) => {
+    return this.getMuscleUseCase.execute(args)
   }
 }

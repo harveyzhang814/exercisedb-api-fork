@@ -2,6 +2,8 @@ import { IUseCase } from '#common/types/use-case.type.js'
 import { FileLoader } from '../../../data/load'
 import Fuse from 'fuse.js'
 import { Exercise, GetExercisesArgs, GetExercisesReturnArgs } from '../types'
+import { createTranslator } from '../../../common/i18n'
+import { DEFAULT_LANGUAGE } from '../../../common/types/i18n.types'
 
 export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExercisesReturnArgs> {
   private exerciseData: Exercise[] | null = null
@@ -149,7 +151,7 @@ export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExerci
     }
   }
 
-  async execute({ offset, limit, query = {}, sort = {} }: GetExercisesArgs): Promise<GetExercisesReturnArgs> {
+  async execute({ offset, limit, query = {}, sort = {}, lang }: GetExercisesArgs): Promise<GetExercisesReturnArgs> {
     try {
       const exerciseData = await this.getExerciseData()
       console.log({ query, offset, limit, sort, exrLenght: exerciseData.length })
@@ -161,8 +163,13 @@ export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExerci
       // Apply pagination
       const { exercises, totalPages, currentPage } = this.paginateResults(sorted, offset || 0, limit || 10)
 
+      // Apply translation
+      const language = lang || DEFAULT_LANGUAGE
+      const translator = createTranslator(language)
+      const translatedExercises = translator.translateExercises(exercises)
+
       return {
-        exercises,
+        exercises: translatedExercises,
         totalPages,
         totalExercises: filtered.length,
         currentPage

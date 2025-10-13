@@ -3,6 +3,7 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { z } from 'zod'
 import { EquipmentModel } from '../models/equipment.model'
 import { EquipmentService } from '../services'
+import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
 
 export class EquipmentController implements Routes {
   public controller: OpenAPIHono
@@ -20,6 +21,9 @@ export class EquipmentController implements Routes {
         tags: ['EQUIPMENTS'],
         summary: 'GetAllEquipments',
         operationId: 'getEquipments',
+        request: {
+          query: LanguageQuerySchema
+        },
         responses: {
           200: {
             description: 'Successful response with list of all equipments.',
@@ -44,7 +48,8 @@ export class EquipmentController implements Routes {
         }
       }),
       async (ctx) => {
-        const response = await this.equipmentService.getEquipments()
+        const lang = ctx.get('language')
+        const response = await this.equipmentService.getEquipments({ lang })
         return ctx.json({ success: true, data: response })
       }
     )

@@ -3,6 +3,7 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { z } from 'zod'
 import { MuscleModel } from '../models/muscle.model'
 import { MuscleService } from '../services'
+import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
 
 export class MuscleController implements Routes {
   public controller: OpenAPIHono
@@ -20,6 +21,9 @@ export class MuscleController implements Routes {
         tags: ['MUSCLES'],
         summary: 'GetAllMuscles',
         operationId: 'getMuscles',
+        request: {
+          query: LanguageQuerySchema
+        },
         responses: {
           200: {
             description: 'Successful response with list of all muscles.',
@@ -44,7 +48,8 @@ export class MuscleController implements Routes {
         }
       }),
       async (ctx) => {
-        const response = await this.muscleService.getMuscles()
+        const lang = ctx.get('language')
+        const response = await this.muscleService.getMuscles({ lang })
         return ctx.json({ success: true, data: response })
       }
     )

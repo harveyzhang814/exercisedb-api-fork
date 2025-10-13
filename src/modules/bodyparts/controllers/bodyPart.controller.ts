@@ -3,6 +3,7 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { z } from 'zod'
 import { BodyPartService } from '../services'
 import { BodyPartModel } from '../models/bodyPart.model'
+import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
 
 export class BodyPartController implements Routes {
   public controller: OpenAPIHono
@@ -20,6 +21,9 @@ export class BodyPartController implements Routes {
         tags: ['BODYPARTS'],
         summary: 'GetAllBodyparts',
         operationId: 'getBodyParts',
+        request: {
+          query: LanguageQuerySchema
+        },
         responses: {
           200: {
             description: 'Successful response with list of all bodyparts.',
@@ -44,7 +48,8 @@ export class BodyPartController implements Routes {
         }
       }),
       async (ctx) => {
-        const response = await this.bodyPartService.getBodyParts()
+        const lang = ctx.get('language')
+        const response = await this.bodyPartService.getBodyParts({ lang })
         return ctx.json({ success: true, data: response })
       }
     )

@@ -3,6 +3,7 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { z } from 'zod'
 import { ExerciseService } from '../services/exercise.service'
 import { ExerciseModel, ExerciseResponseSchema, PaginationQuerySchema } from '../models/exercise.model'
+import { LanguageQuerySchema } from '../../../common/schemas/language.schema'
 
 export class ExerciseController implements Routes {
   public controller: OpenAPIHono
@@ -55,7 +56,7 @@ export class ExerciseController implements Routes {
               example: 0.3,
               default: 0.3
             })
-          })
+          }).merge(LanguageQuerySchema)
         },
         responses: {
           200: {
@@ -74,12 +75,14 @@ export class ExerciseController implements Routes {
       async (ctx) => {
         const { offset = 0, limit = 10, q, threshold = 0.3 } = ctx.req.valid('query')
         const { origin, pathname } = new URL(ctx.req.url)
+        const lang = ctx.get('language')
 
         const { totalExercises, currentPage, totalPages, exercises } = await this.exerciseService.searchExercises({
           offset,
           limit,
           query: q,
-          threshold
+          threshold,
+          lang
         })
 
         const { previousPage, nextPage } = this.buildPaginationUrls(
@@ -134,7 +137,7 @@ export class ExerciseController implements Routes {
               example: 'desc',
               default: 'desc'
             })
-          })
+          }).merge(LanguageQuerySchema)
         },
         responses: {
           200: {
@@ -153,12 +156,14 @@ export class ExerciseController implements Routes {
       async (ctx) => {
         const { offset = 0, limit = 10, search, sortBy = 'targetMuscles', sortOrder = 'desc' } = ctx.req.valid('query')
         const { origin, pathname } = new URL(ctx.req.url)
+        const lang = ctx.get('language')
 
         const { totalExercises, totalPages, currentPage, exercises } = await this.exerciseService.getAllExercises({
           offset,
           limit,
           search,
-          sort: { [sortBy]: sortOrder === 'asc' ? 1 : -1 }
+          sort: { [sortBy]: sortOrder === 'asc' ? 1 : -1 },
+          lang
         })
 
         const searchParam = search ? `&search=${encodeURIComponent(search)}` : ''
@@ -231,7 +236,7 @@ export class ExerciseController implements Routes {
               example: 'desc',
               default: 'desc'
             })
-          })
+          }).merge(LanguageQuerySchema)
         },
         responses: {
           200: {
@@ -260,6 +265,7 @@ export class ExerciseController implements Routes {
         } = ctx.req.valid('query')
 
         const { origin, pathname } = new URL(ctx.req.url)
+        const lang = ctx.get('language')
 
         const { totalExercises, totalPages, currentPage, exercises } = await this.exerciseService.filterExercises({
           offset,
@@ -268,7 +274,8 @@ export class ExerciseController implements Routes {
           targetMuscles: muscles ? muscles.split(',').map((m) => m.trim()) : undefined,
           equipments: equipment ? equipment.split(',').map((e) => e.trim()) : undefined,
           bodyParts: bodyParts ? bodyParts.split(',').map((b) => b.trim()) : undefined,
-          sort: { [sortBy]: sortOrder === 'asc' ? 1 : -1 }
+          sort: { [sortBy]: sortOrder === 'asc' ? 1 : -1 },
+          lang
         })
 
         const queryParams = new URLSearchParams()
@@ -318,7 +325,8 @@ export class ExerciseController implements Routes {
               example: 'ztAa1RK',
               default: 'ztAa1RK'
             })
-          })
+          }),
+          query: LanguageQuerySchema
         },
         responses: {
           200: {
@@ -348,7 +356,8 @@ export class ExerciseController implements Routes {
       }),
       async (ctx) => {
         const exerciseId = ctx.req.param('exerciseId')
-        const exercise = await this.exerciseService.getExerciseById({ exerciseId })
+        const lang = ctx.get('language')
+        const exercise = await this.exerciseService.getExerciseById({ exerciseId, lang })
 
         return ctx.json({
           success: true,
@@ -374,7 +383,7 @@ export class ExerciseController implements Routes {
               default: 'upper arms'
             })
           }),
-          query: PaginationQuerySchema
+          query: PaginationQuerySchema.merge(LanguageQuerySchema)
         },
         responses: {
           200: {
@@ -394,12 +403,14 @@ export class ExerciseController implements Routes {
         const { offset = 0, limit = 10 } = ctx.req.valid('query')
         const bodyPartName = ctx.req.param('bodyPartName')
         const { origin, pathname } = new URL(ctx.req.url)
+        const lang = ctx.get('language')
 
         const { totalExercises, currentPage, totalPages, exercises } =
           await this.exerciseService.getExercisesByBodyPart({
             offset,
             limit,
-            bodyPart: bodyPartName
+            bodyPart: bodyPartName,
+            lang
           })
 
         const { previousPage, nextPage } = this.buildPaginationUrls(origin, pathname, currentPage, totalPages, limit)
@@ -434,7 +445,7 @@ export class ExerciseController implements Routes {
               default: 'dumbbell'
             })
           }),
-          query: PaginationQuerySchema
+          query: PaginationQuerySchema.merge(LanguageQuerySchema)
         },
         responses: {
           200: {
@@ -454,12 +465,14 @@ export class ExerciseController implements Routes {
         const { offset = 0, limit = 10 } = ctx.req.valid('query')
         const equipmentName = ctx.req.param('equipmentName')
         const { origin, pathname } = new URL(ctx.req.url)
+        const lang = ctx.get('language')
 
         const { totalExercises, currentPage, totalPages, exercises } =
           await this.exerciseService.getExercisesByEquipment({
             offset,
             limit,
-            equipment: equipmentName
+            equipment: equipmentName,
+            lang
           })
 
         const { previousPage, nextPage } = this.buildPaginationUrls(origin, pathname, currentPage, totalPages, limit)
@@ -503,7 +516,7 @@ export class ExerciseController implements Routes {
               example: false,
               default: false
             })
-          })
+          }).merge(LanguageQuerySchema)
         },
         responses: {
           200: {
@@ -523,11 +536,13 @@ export class ExerciseController implements Routes {
         const { offset = 0, limit = 10, includeSecondary = false } = ctx.req.valid('query')
         const muscleName = ctx.req.param('muscleName')
         const { origin, pathname } = new URL(ctx.req.url)
+        const lang = ctx.get('language')
         const { totalExercises, currentPage, totalPages, exercises } = await this.exerciseService.getExercisesByMuscle({
           offset,
           limit,
           muscle: muscleName,
-          includeSecondary
+          includeSecondary,
+          lang
         })
 
         const { previousPage, nextPage } = this.buildPaginationUrls(

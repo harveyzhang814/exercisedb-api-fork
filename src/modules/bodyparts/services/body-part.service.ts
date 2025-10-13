@@ -1,4 +1,5 @@
 import { GetBodyPartsUseCase } from '../use-cases'
+import { GetBodyPartsArgs } from '../types'
 
 export class BodyPartService {
   private readonly getBodyPartsUseCase: GetBodyPartsUseCase
@@ -7,7 +8,7 @@ export class BodyPartService {
     this.getBodyPartsUseCase = new GetBodyPartsUseCase()
   }
 
-  getBodyParts = () => {
-    return this.getBodyPartsUseCase.execute()
+  getBodyParts = (args?: GetBodyPartsArgs) => {
+    return this.getBodyPartsUseCase.execute(args)
   }
 }

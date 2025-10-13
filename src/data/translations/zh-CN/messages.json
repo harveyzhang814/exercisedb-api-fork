@@ -1,0 +1,12 @@
+{
+  "success": "成功",
+  "notFound": "未找到运动",
+  "exerciseNotFound": "未找到运动：{exerciseId}",
+  "routeNotFound": "路由不存在。请查看 API 文档：{baseUrl}/docs",
+  "internalError": "内部服务器错误",
+  "invalidLanguage": "不支持的语言代码",
+  "bodyPartNotFound": "未找到身体部位",
+  "equipmentNotFound": "未找到器械",
+  "muscleNotFound": "未找到肌肉"
+}
+
