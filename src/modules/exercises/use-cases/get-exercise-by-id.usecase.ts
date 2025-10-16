@@ -7,8 +7,8 @@ export class GetExerciseByIdUseCase implements IUseCase<FetchExerciseByIdReq, Fe
   constructor() {}
 
   async execute(request: FetchExerciseByIdReq): Promise<FetchExerciseByIdRes> {
-    const { exerciseId } = request
-    const exerciseData = await FileLoader.loadExercises()
+    const { exerciseId, lang } = request
+    const exerciseData = await FileLoader.loadExercises(lang)
     const isExerciseExist = exerciseData.find((exer) => exer.exerciseId === exerciseId)
     // check is exercise exist
     if (!isExerciseExist) {

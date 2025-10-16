@@ -1,4 +1,5 @@
 import { GetEquipmentsUseCase } from '../use-cases'
+import { GetEquipmentsArgs } from '../types'
 
 export class EquipmentService {
   private readonly getEquipmentUseCase: GetEquipmentsUseCase
@@ -7,7 +8,7 @@ export class EquipmentService {
     this.getEquipmentUseCase = new GetEquipmentsUseCase()
   }
 
-  getEquipments = () => {
-    return this.getEquipmentUseCase.execute()
+  getEquipments = (args: GetEquipmentsArgs = {}) => {
+    return this.getEquipmentUseCase.execute(args)
   }
 }

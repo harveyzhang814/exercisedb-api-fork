@@ -1,0 +1,86 @@
+[
+  {
+    "name": "body weight"
+  },
+  {
+    "name": "assisted"
+  },
+  {
+    "name": "weighted"
+  },
+  {
+    "name": "barbell"
+  },
+  {
+    "name": "olympic barbell"
+  },
+  {
+    "name": "ez barbell"
+  },
+  {
+    "name": "dumbbell"
+  },
+  {
+    "name": "kettlebell"
+  },
+  {
+    "name": "trap bar"
+  },
+  {
+    "name": "hammer"
+  },
+  {
+    "name": "band"
+  },
+  {
+    "name": "resistance band"
+  },
+  {
+    "name": "rope"
+  },
+  {
+    "name": "cable"
+  },
+  {
+    "name": "smith machine"
+  },
+  {
+    "name": "leverage machine"
+  },
+  {
+    "name": "sled machine"
+  },
+  {
+    "name": "tire"
+  },
+  {
+    "name": "stationary bike"
+  },
+  {
+    "name": "stepmill machine"
+  },
+  {
+    "name": "elliptical machine"
+  },
+  {
+    "name": "skierg machine"
+  },
+  {
+    "name": "upper body ergometer"
+  },
+  {
+    "name": "stability ball"
+  },
+  {
+    "name": "bosu ball"
+  },
+  {
+    "name": "medicine ball"
+  },
+  {
+    "name": "wheel roller"
+  },
+  {
+    "name": "roller"
+  }
+]

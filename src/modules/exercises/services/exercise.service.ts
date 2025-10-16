@@ -21,6 +21,7 @@ export class ExerciseService {
     const query: GetExercisesArgs = {
       offset: params.offset,
       limit: params.limit,
+      lang: params.lang,
       query: {
         search: params.query,
         searchThreshold: params.threshold
@@ -37,6 +38,7 @@ export class ExerciseService {
     const query: GetExercisesArgs = {
       offset: params.offset,
       limit: params.limit,
+      lang: params.lang,
       query: params.search ? { search: params.search } : {},
       sort: params.sort
     }
@@ -65,6 +67,7 @@ export class ExerciseService {
     const query: GetExercisesArgs = {
       offset: params.offset,
       limit: params.limit,
+      lang: params.lang,
       query: queryFilters,
       sort: params.sort
     }
@@ -77,6 +80,7 @@ export class ExerciseService {
     const query: GetExercisesArgs = {
       offset: params.offset,
       limit: params.limit,
+      lang: params.lang,
       query: {
         bodyParts: [params.bodyPart]
       }
@@ -90,6 +94,7 @@ export class ExerciseService {
     const query: GetExercisesArgs = {
       offset: params.offset,
       limit: params.limit,
+      lang: params.lang,
       query: {
         equipments: [params.equipment]
       }
@@ -103,6 +108,7 @@ export class ExerciseService {
     const query: GetExercisesArgs = {
       offset: params.offset,
       limit: params.limit,
+      lang: params.lang,
       query: {
         targetMuscles: [params.muscle],
         includeSecondaryMuscles: params.includeSecondary
