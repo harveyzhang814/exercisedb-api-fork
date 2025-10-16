@@ -1,12 +1,12 @@
 import { IUseCase } from '#common/types/use-case.type.js'
 import { FileLoader } from '../../../data/load'
-import { Muscle as FetchAllMuscleRes } from '../types'
+import { FetchAllMuscleRes, GetMusclesArgs } from '../types'
 
-export class GetMusclesUseCase implements IUseCase<void, FetchAllMuscleRes[]> {
+export class GetMusclesUseCase implements IUseCase<GetMusclesArgs, FetchAllMuscleRes> {
   constructor() {}
 
-  async execute(): Promise<FetchAllMuscleRes[]> {
-    const result = await FileLoader.loadMuscles()
+  async execute(args: GetMusclesArgs = {}): Promise<FetchAllMuscleRes> {
+    const result = await FileLoader.loadMuscles(args.lang)
     return result
   }
 }

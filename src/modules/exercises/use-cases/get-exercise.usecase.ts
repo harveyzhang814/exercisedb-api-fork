@@ -9,8 +9,8 @@ export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExerci
 
   constructor() {}
 
-  private async getExerciseData(): Promise<Exercise[]> {
-    this.exerciseData = await FileLoader.loadExercises()
+  private async getExerciseData(lang?: string): Promise<Exercise[]> {
+    this.exerciseData = await FileLoader.loadExercises(lang)
     return this.exerciseData
   }
 
@@ -149,10 +149,10 @@ export class GetExercisesUseCase implements IUseCase<GetExercisesArgs, GetExerci
     }
   }
 
-  async execute({ offset, limit, query = {}, sort = {} }: GetExercisesArgs): Promise<GetExercisesReturnArgs> {
+  async execute({ offset, limit, lang, query = {}, sort = {} }: GetExercisesArgs): Promise<GetExercisesReturnArgs> {
     try {
-      const exerciseData = await this.getExerciseData()
-      console.log({ query, offset, limit, sort, exrLenght: exerciseData.length })
+      const exerciseData = await this.getExerciseData(lang)
+      console.log({ query, offset, limit, sort, lang, exrLenght: exerciseData.length })
       // Apply filters
       const filtered = this.filterByQuery(exerciseData, query)
       // Apply sorting

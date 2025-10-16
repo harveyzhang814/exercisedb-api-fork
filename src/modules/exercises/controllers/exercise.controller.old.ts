@@ -171,33 +171,25 @@ export class ExerciseController implements Routes {
         }
       }),
       async (ctx) => {
-        const { offset = 0, limit = 10, search, sortBy = 'targetMuscles', sortOrder = 'desc', lang } = ctx.req.valid('query')
+        const { offset = 0, limit = 10, search, sortBy = 'targetMuscles', sortOrder = 'desc' } = ctx.req.valid('query')
         const { origin, pathname } = new URL(ctx.req.url)
-
-        // Validate language parameter
-        const { isValid, language } = validateLanguage(lang)
-        if (!isValid) {
-          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
-        }
 
         const { totalExercises, totalPages, currentPage, exercises } = await this.exerciseService.getAllExercises({
           offset,
           limit,
-          lang: language,
           search,
           sort: { [sortBy]: sortOrder === 'asc' ? 1 : -1 }
         })
 
         const searchParam = search ? `&search=${encodeURIComponent(search)}` : ''
         const sortParams = `&sortBy=${sortBy}&sortOrder=${sortOrder}`
-        const langParam = `&lang=${encodeURIComponent(language)}`
         const { previousPage, nextPage } = this.buildPaginationUrls(
           origin,
           pathname,
           currentPage,
           totalPages,
           limit,
-          `${searchParam}${sortParams}${langParam}`
+          `${searchParam}${sortParams}`
         )
 
         return ctx.json({
@@ -258,8 +250,7 @@ export class ExerciseController implements Routes {
               description: 'Sort order',
               example: 'desc',
               default: 'desc'
-            }),
-            lang: this.langQuerySchema
+            })
           })
         },
         responses: {
@@ -285,22 +276,14 @@ export class ExerciseController implements Routes {
           equipment,
           bodyParts,
           sortBy = 'name',
-          sortOrder = 'desc',
-          lang
+          sortOrder = 'desc'
         } = ctx.req.valid('query')
 
         const { origin, pathname } = new URL(ctx.req.url)
 
-        // Validate language parameter
-        const { isValid, language } = validateLanguage(lang)
-        if (!isValid) {
-          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
-        }
-
         const { totalExercises, totalPages, currentPage, exercises } = await this.exerciseService.filterExercises({
           offset,
           limit,
-          lang: language,
           search,
           targetMuscles: muscles ? muscles.split(',').map((m) => m.trim()) : undefined,
           equipments: equipment ? equipment.split(',').map((e) => e.trim()) : undefined,
@@ -315,7 +298,6 @@ export class ExerciseController implements Routes {
         if (bodyParts) queryParams.append('bodyParts', bodyParts)
         queryParams.append('sortBy', sortBy)
         queryParams.append('sortOrder', sortOrder)
-        queryParams.append('lang', language)
 
         const { previousPage, nextPage } = this.buildPaginationUrls(
           origin,
@@ -356,9 +338,6 @@ export class ExerciseController implements Routes {
               example: 'ztAa1RK',
               default: 'ztAa1RK'
             })
-          }),
-          query: z.object({
-            lang: this.langQuerySchema
           })
         },
         responses: {
@@ -389,15 +368,7 @@ export class ExerciseController implements Routes {
       }),
       async (ctx) => {
         const exerciseId = ctx.req.param('exerciseId')
-        const { lang } = ctx.req.valid('query')
-
-        // Validate language parameter
-        const { isValid, language } = validateLanguage(lang)
-        if (!isValid) {
-          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
-        }
-
-        const exercise = await this.exerciseService.getExerciseById({ exerciseId, lang: language })
+        const exercise = await this.exerciseService.getExerciseById({ exerciseId })
 
         return ctx.json({
           success: true,
@@ -423,9 +394,7 @@ export class ExerciseController implements Routes {
               default: 'upper arms'
             })
           }),
-          query: PaginationQuerySchema.extend({
-            lang: this.langQuerySchema
-          })
+          query: PaginationQuerySchema
         },
         responses: {
           200: {
@@ -442,32 +411,18 @@ export class ExerciseController implements Routes {
         }
       }),
       async (ctx) => {
-        const { offset = 0, limit = 10, lang } = ctx.req.valid('query')
+        const { offset = 0, limit = 10 } = ctx.req.valid('query')
         const bodyPartName = ctx.req.param('bodyPartName')
         const { origin, pathname } = new URL(ctx.req.url)
-
-        // Validate language parameter
-        const { isValid, language } = validateLanguage(lang)
-        if (!isValid) {
-          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
-        }
 
         const { totalExercises, currentPage, totalPages, exercises } =
           await this.exerciseService.getExercisesByBodyPart({
             offset,
             limit,
-            lang: language,
             bodyPart: bodyPartName
           })
 
-        const { previousPage, nextPage } = this.buildPaginationUrls(
-          origin, 
-          pathname, 
-          currentPage, 
-          totalPages, 
-          limit,
-          `lang=${encodeURIComponent(language)}`
-        )
+        const { previousPage, nextPage } = this.buildPaginationUrls(origin, pathname, currentPage, totalPages, limit)
 
         return ctx.json({
           success: true,
@@ -499,9 +454,7 @@ export class ExerciseController implements Routes {
               default: 'dumbbell'
             })
           }),
-          query: PaginationQuerySchema.extend({
-            lang: this.langQuerySchema
-          })
+          query: PaginationQuerySchema
         },
         responses: {
           200: {
@@ -518,32 +471,18 @@ export class ExerciseController implements Routes {
         }
       }),
       async (ctx) => {
-        const { offset = 0, limit = 10, lang } = ctx.req.valid('query')
+        const { offset = 0, limit = 10 } = ctx.req.valid('query')
         const equipmentName = ctx.req.param('equipmentName')
         const { origin, pathname } = new URL(ctx.req.url)
-
-        // Validate language parameter
-        const { isValid, language } = validateLanguage(lang)
-        if (!isValid) {
-          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
-        }
 
         const { totalExercises, currentPage, totalPages, exercises } =
           await this.exerciseService.getExercisesByEquipment({
             offset,
             limit,
-            lang: language,
             equipment: equipmentName
           })
 
-        const { previousPage, nextPage } = this.buildPaginationUrls(
-          origin, 
-          pathname, 
-          currentPage, 
-          totalPages, 
-          limit,
-          `lang=${encodeURIComponent(language)}`
-        )
+        const { previousPage, nextPage } = this.buildPaginationUrls(origin, pathname, currentPage, totalPages, limit)
 
         return ctx.json({
           success: true,
@@ -583,8 +522,7 @@ export class ExerciseController implements Routes {
               type: 'boolean',
               example: false,
               default: false
-            }),
-            lang: this.langQuerySchema
+            })
           })
         },
         responses: {
@@ -602,20 +540,12 @@ export class ExerciseController implements Routes {
         }
       }),
       async (ctx) => {
-        const { offset = 0, limit = 10, includeSecondary = false, lang } = ctx.req.valid('query')
+        const { offset = 0, limit = 10, includeSecondary = false } = ctx.req.valid('query')
         const muscleName = ctx.req.param('muscleName')
         const { origin, pathname } = new URL(ctx.req.url)
-
-        // Validate language parameter
-        const { isValid, language } = validateLanguage(lang)
-        if (!isValid) {
-          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
-        }
-
         const { totalExercises, currentPage, totalPages, exercises } = await this.exerciseService.getExercisesByMuscle({
           offset,
           limit,
-          lang: language,
           muscle: muscleName,
           includeSecondary
         })
@@ -626,7 +556,7 @@ export class ExerciseController implements Routes {
           currentPage,
           totalPages,
           limit,
-          `includeSecondary=${includeSecondary}&lang=${encodeURIComponent(language)}`
+          `includeSecondary=${includeSecondary}`
         )
 
         return ctx.json({
