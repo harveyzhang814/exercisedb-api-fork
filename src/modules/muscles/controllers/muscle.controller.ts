@@ -3,6 +3,7 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { z } from 'zod'
 import { MuscleModel } from '../models/muscle.model'
 import { MuscleService } from '../services'
+import { validateLanguage } from '../../../common/utils/lang-validator'
 
 export class MuscleController implements Routes {
   public controller: OpenAPIHono
@@ -20,6 +21,17 @@ export class MuscleController implements Routes {
         tags: ['MUSCLES'],
         summary: 'GetAllMuscles',
         operationId: 'getMuscles',
+        request: {
+          query: z.object({
+            lang: z.string().optional().openapi({
+              title: 'Language Code',
+              description: 'Language code in format xx-XX (e.g., en-US, zh-CN). Defaults to en-US',
+              type: 'string',
+              example: 'en-US',
+              default: 'en-US'
+            })
+          })
+        },
         responses: {
           200: {
             description: 'Successful response with list of all muscles.',
@@ -44,7 +56,15 @@ export class MuscleController implements Routes {
         }
       }),
       async (ctx) => {
-        const response = await this.muscleService.getMuscles()
+        const { lang } = ctx.req.valid('query')
+
+        // Validate language parameter
+        const { isValid, language } = validateLanguage(lang)
+        if (!isValid) {
+          console.warn(`Invalid language parameter: ${lang}, using default: ${language}`)
+        }
+
+        const response = await this.muscleService.getMuscles({ lang: language })
         return ctx.json({ success: true, data: response })
       }
     )
